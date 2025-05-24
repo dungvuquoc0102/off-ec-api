@@ -1,17 +1,21 @@
+require("module-alias/register");
 const express = require("express");
-const router = require("./src/routes");
-
-//init
+const expressLayouts = require("express-ejs-layouts");
+const apiRouter = require("./src/routes/api");
+const adminRouter = require("./src/routes/admin");
 const app = express();
+const port = 3000;
 
-//middleware
-app.use(express.static("pulbic"));
+app.use(express.static("public"));
 app.use(express.json());
+app.set("view engine", "ejs");
+app.set("views", "./src/views");
+app.use(expressLayouts);
+app.set("layout", "admin/layouts/default");
 
-//router
-app.use("/api/v1", router);
+app.use("/api/v1", apiRouter);
+app.use("/admin", adminRouter);
 
-//listen
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
