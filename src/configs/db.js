@@ -1,4 +1,4 @@
-const mysql2 = require("mysql2");
+const mysql2 = require("mysql2/promise");
 
 const db = mysql2.createPool({
   host: "127.0.0.1",
@@ -8,12 +8,16 @@ const db = mysql2.createPool({
   database: "off-ec-api_dev",
 });
 
-db.getConnection((err) => {
-  if (err) {
-    console.log("--> Connect DB failed:", err.message);
-  } else {
-    console.log("--> Connect DB succeeded");
+(async () => {
+  try {
+    const [rows, fields] = await db.query("select 1, 2");
+    console.log(rows);
+    if (rows) {
+      console.log("Connect DB succeed");
+    }
+  } catch (error) {
+    console.log(error.message || "Connect DB failed");
   }
-});
+})();
 
-module.exports = db.promise;
+module.exports = db;

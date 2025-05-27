@@ -3,6 +3,7 @@ const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const apiRouter = require("./src/routes/api");
 const adminRouter = require("./src/routes/admin");
+const db = require("@/configs/db");
 const app = express();
 const port = 3000;
 
