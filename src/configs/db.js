@@ -10,8 +10,7 @@ const db = mysql2.createPool({
 
 (async () => {
   try {
-    const [rows, fields] = await db.query("select 1, 2");
-    console.log(rows);
+    const [rows, fields] = await db.query("select 1");
     if (rows) {
       console.log("Connect DB succeed");
     }
